@@ -25,7 +25,7 @@ app.use((req, res, next) => {
 
 // Home route
 app.get('/', (req, res) => {
-    res.send('Hello, World! from server 2');
+    res.send('Hello, World! from server 2 by node');
 });
 
 // API data route
