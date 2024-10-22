@@ -20,7 +20,7 @@ app = Flask(__name__)
 def after_request(response):
     # Add custom headers to the response
     response.headers["access-control-allow-methods"] = "DELETE, GET, POST, PUT"
-    response.headers["access-control-allow-origin"] = "http://localhost:3000"
+    response.headers["access-control-allow-origin"] = "*"
     response.headers["access-control-allow-headers"] = "Content-Type, Authorization, Anil"
     return response
 
