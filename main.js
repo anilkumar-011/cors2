@@ -18,7 +18,7 @@ const app = express();
 // Custom headers can be added here if needed
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Methods", "DELETE, GET, POST, PUT");
-    res.header("Access-Control-Allow-Origin", "");
+    res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, Anil");
     next();
 });
