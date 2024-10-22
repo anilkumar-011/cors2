@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 from flask_cors import CORS
 
 app = Flask(__name__)
@@ -26,8 +26,7 @@ def after_request(response):
 
 @app.route("/")
 def home():
-    return "Hello, World! from server 2"
-
+    return render_template('index.html')
 
 @app.route("/api/data", methods=['GET', 'POST', 'PUT'])
 def api_data():
