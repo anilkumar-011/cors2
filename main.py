@@ -31,7 +31,7 @@ def home():
 @app.route("/api/data", methods=['GET', 'POST', 'PUT'])
 def api_data():
     if request.method == 'GET':
-        data = {"message": "Hello, this is your data!", "status": "success"}
+        data = {"message": "Hello, this is your data!", "status": "success", "requestorigin":request.headers.get('Origin')}
         return jsonify(data)
 
     elif request.method == 'POST':
