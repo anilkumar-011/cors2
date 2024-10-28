@@ -21,7 +21,7 @@ def after_request(response):
     # Add custom headers to the response
     response.headers["access-control-allow-methods"] = "DELETE, GET, POST, PUT"
     response.headers["access-control-allow-origin"] = "*"
-    response.headers["access-control-allow-headers"] = "Content-Type, Authorization, Anil"
+    response.headers["access-control-allow-headers"] = ""
     return response
 
 @app.route("/")
