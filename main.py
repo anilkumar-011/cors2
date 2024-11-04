@@ -16,13 +16,13 @@ app = Flask(__name__)
 # )
 
 
-@app.after_request
-def after_request(response):
-    # Add custom headers to the response
-    response.headers["access-control-allow-methods"] = "DELETE, GET, POST, PUT"
-    response.headers["access-control-allow-origin"] = "*"
-    response.headers["access-control-allow-headers"] = "content-type"
-    return response
+# @app.after_request
+# def after_request(response):
+#     # Add custom headers to the response
+#     response.headers["access-control-allow-methods"] = "DELETE, GET, POST, PUT"
+#     response.headers["access-control-allow-origin"] = "*"
+#     response.headers["access-control-allow-headers"] = "content-type"
+#     return response
 
 @app.route("/")
 def home():
