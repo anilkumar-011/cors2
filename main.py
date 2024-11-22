@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify, render_template
-from flask_cors import CORS
+import base64
+import secrets
 
 app = Flask(__name__)
 # CORS(app, origins=["http://localhost:3000"], methods=["GET", "POST", "DELETE","PUT"], allow_headers=["*"])
@@ -22,6 +23,15 @@ def after_request(response):
     response.headers["access-control-allow-methods"] = "DELETE, GET, POST, PUT"
     response.headers["access-control-allow-origin"] = "*"
     response.headers["access-control-allow-headers"] = "content-type"
+
+    #nonce
+    nonce = base64.b64encode(secrets.token_bytes(16)).decode("utf-8")
+    css_nonce = base64.b64encode(secrets.token_bytes(16)).decode("utf-8")
+    response.headers["Content-Security-Policy"] = ""
+    if nonce:
+        response.headers["Content-Security-Policy"] += f" script-src 'nonce-{nonce}'"
+    if css_nonce:
+        response.headers["Content-Security-Policy"] += f" style-src 'nonce-{css_nonce}'"
     return response
 
 @app.route("/")
