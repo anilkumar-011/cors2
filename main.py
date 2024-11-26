@@ -22,7 +22,7 @@ def after_request(response):
     # Add custom headers to the response
     response.headers["access-control-allow-methods"] = "DELETE, GET, POST, PUT"
     response.headers["access-control-allow-origin"] = "*"
-    response.headers["access-control-allow-headers"] = "content-type, Xa4vrhYP3Q-a, Xa4vrhYP3Q-b, Xa4vrhYP3Q-c, Xa4vrhYP3Q-d, Xa4vrhYP3Q-f, Xa4vrhYP3Q-e, Xa4vrhYP3Q-z "
+    response.headers["access-control-allow-headers"] = "content-type"
 
     #nonce
     nonce = base64.b64encode(secrets.token_bytes(16)).decode("utf-8")
