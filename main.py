@@ -27,11 +27,11 @@ def after_request(response):
     #nonce
     nonce = base64.b64encode(secrets.token_bytes(16)).decode("utf-8")
     css_nonce = base64.b64encode(secrets.token_bytes(16)).decode("utf-8")
-    response.headers["Content-Security-Policy"] = ""
+    response.headers["content-security-policy"] = ""
     if nonce:
-        response.headers["Content-Security-Policy"] += f" script-src 'nonce-{nonce}'"
+        response.headers["content-security-policy"] += f" script-src 'nonce-{nonce}'"
     if css_nonce:
-        response.headers["Content-Security-Policy"] += f" style-src 'nonce-{css_nonce}'"
+        response.headers["content-security-policy"] += f" style-src 'nonce-{css_nonce}'"
     return response
 
 @app.route("/")
