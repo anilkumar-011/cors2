@@ -40,8 +40,9 @@ def after_request(response):
 
 @app.route("/")
 def home():
-    # Pass the nonces stored in `g` to the template
-    return render_template('index.html', script_nonce=g.script_nonce, style_nonce=g.style_nonce)
+    script_nonce = getattr(g, 'script_nonce', '')
+    style_nonce = getattr(g, 'style_nonce', '')
+    return render_template('index.html', script_nonce=script_nonce, style_nonce=style_nonce)
 
 
 @app.route("/api/data", methods=['GET', 'POST', 'PUT'])
