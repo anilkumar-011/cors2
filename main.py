@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify, render_template, g
 import base64
 import secrets
 
@@ -24,15 +24,25 @@ def after_request(response):
     response.headers["access-control-allow-origin"] = "*"
     response.headers["access-control-allow-headers"] = "content-type"
 
-    #nonce
+    # Generate nonces
     nonce = base64.b64encode(secrets.token_bytes(16)).decode("utf-8")
     css_nonce = base64.b64encode(secrets.token_bytes(16)).decode("utf-8")
-    response.headers["content-security-policy"] = ""
-    if nonce:
-        response.headers["content-security-policy"] += f" SCRIPT-src 'nonce-{nonce}'"
-    if css_nonce:
-        response.headers["content-security-policy"] += f" style-src 'nonce-{css_nonce}'"
+    
+    # Store nonces in Flask's `g` object for access in templates
+    g.script_nonce = nonce
+    g.style_nonce = css_nonce
+
+    # Add CSP header
+    response.headers["content-security-policy"] = f"script-src 'nonce-{nonce}'; style-src 'nonce-{css_nonce}';"
+
     return response
+
+@app.before_request
+def add_nonces_to_context():
+    # Ensure nonces are available for the template context
+    g.script_nonce = base64.b64encode(secrets.token_bytes(16)).decode("utf-8")
+    g.style_nonce = base64.b64encode(secrets.token_bytes(16)).decode("utf-8")
+
 
 @app.route("/")
 def home():
