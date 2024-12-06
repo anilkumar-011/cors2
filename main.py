@@ -37,16 +37,12 @@ def after_request(response):
 
     return response
 
-@app.before_request
-def add_nonces_to_context():
-    # Ensure nonces are available for the template context
-    g.script_nonce = base64.b64encode(secrets.token_bytes(16)).decode("utf-8")
-    g.style_nonce = base64.b64encode(secrets.token_bytes(16)).decode("utf-8")
-
 
 @app.route("/")
 def home():
-    return render_template('index.html')
+    # Pass the nonces stored in `g` to the template
+    return render_template('index.html', script_nonce=g.script_nonce, style_nonce=g.style_nonce)
+
 
 @app.route("/api/data", methods=['GET', 'POST', 'PUT'])
 def api_data():
