@@ -29,7 +29,7 @@ def after_request(response):
     css_nonce = base64.b64encode(secrets.token_bytes(16)).decode("utf-8")
     response.headers["content-security-policy"] = ""
     if nonce:
-        response.headers["content-security-policy"] += f" script-src 'nonce-{nonce}'"
+        response.headers["content-security-policy"] += f" SCRIPT-src 'nonce-{nonce}'"
     if css_nonce:
         response.headers["content-security-policy"] += f" style-src 'nonce-{css_nonce}'"
     return response
