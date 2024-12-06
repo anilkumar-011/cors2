@@ -33,7 +33,7 @@ def after_request(response):
     g.style_nonce = css_nonce
 
     # Add CSP header
-    response.headers["content-security-policy"] = f"script-src 'nonce-{nonce}'; style-src 'nonce-{css_nonce}';"
+    response.headers["content-security-policy"] = f"Script-src 'nonce-{nonce}'; style-src 'nonce-{css_nonce}';"
 
     return response
 
