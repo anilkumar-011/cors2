@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multipart Form</title>
+</head>
+<body>
+    <h1>Multipart Form</h1>
+    <form action="{{ url_for('submit_form') }}" method="POST" enctype="multipart/form-data">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+
+        <label for="file">Upload a file:</label>
+        <input type="file" id="file" name="file" required><br><br>
+
+        <button type="submit">Submit</button>
+    </form>
+</body>
+</html>

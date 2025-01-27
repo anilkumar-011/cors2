@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, render_template, g
 import base64
-import secrets
+import secrets, os
 
 app = Flask(__name__)
 # CORS(app, origins=["http://localhost:3000"], methods=["GET", "POST", "DELETE","PUT"], allow_headers=["*"])
@@ -79,6 +79,21 @@ def delete():
     }
     return jsonify(response_data)
 
+
+@app.route('/submit', methods=['POST'])
+def submit_form():
+    # Get text input
+    username = request.form.get('username')
+    
+    # Get uploaded file
+    uploaded_file = request.files.get('file')
+    
+    if uploaded_file:
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
+        uploaded_file.save(file_path)
+        return f"File uploaded to {file_path}, Username: {username}"
+    
+    return "No file uploaded or username missing!"
 
 if __name__ == "__main__":
     app.run(debug=True)
