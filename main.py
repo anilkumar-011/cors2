@@ -3,6 +3,8 @@ import base64
 import secrets, os
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = './uploads'  # Define your upload folder
+
 # CORS(app, origins=["http://localhost:3000"], methods=["GET", "POST", "DELETE","PUT"], allow_headers=["*"])
 
 # flask_cors.cross_origin(
