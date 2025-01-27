@@ -79,6 +79,9 @@ def delete():
     }
     return jsonify(response_data)
 
+@app.route('/multipart')
+def index():
+    return render_template('form.html')
 
 @app.route('/submit', methods=['POST'])
 def submit_form():
