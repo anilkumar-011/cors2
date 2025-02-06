@@ -13,8 +13,16 @@
     <h1>Welcome to the Home Page!</h1>
     <p>This is a simple HTML page rendered by Flask</p>
 
-    <a href="/api/data"><button>Go to /api/data</button></a>
-    <a href="/multipart"><button>Go to /multipart</button></a>
+    <!-- Form for /api/data -->
+    <form action="/api/data" method="POST">
+        <button type="submit">POST to /api/data</button>
+    </form>
+
+    <!-- Form for /multipart -->
+    <form action="/multipart" method="POST">
+        <button type="submit">POST to /multipart</button>
+    </form>
+
 </body>
 
 </html>
