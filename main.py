@@ -100,6 +100,8 @@ def index():
 @app.route('/submit', methods=['POST'])
 def submit_form():
     # Check if the form is multipart (file upload included)
+    data = request.form.to_dict()  # Get form data as dictionary
+    print("Received JSON Payload:", data) 
     if 'multipart/form-data' in request.content_type:
         # Get text input
         username = request.form.get('username')
