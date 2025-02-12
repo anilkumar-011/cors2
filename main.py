@@ -101,7 +101,6 @@ def index():
 def submit_form():
     # Check if the form is multipart (file upload included)
     data = request.form.to_dict()  # Get form data as dictionary
-    print("Received JSON Payload:", data) 
     if 'multipart/form-data' in request.content_type:
         # Get text input
         username = request.form.get('username')
@@ -115,7 +114,7 @@ def submit_form():
             uploaded_file.save(file_path)
             return f"File uploaded to {file_path}, Username: {username}, Email: {email}"
         
-        return f"Form data received without file. Username: {username}, Email: {email}"
+        return f"Form data received without file. Username: {username}, Email: {email}, Received JSON Payload:, {data}"
 
     # If it's a regular URL encoded form submission (application/x-www-form-urlencoded)
     elif request.content_type == 'application/x-www-form-urlencoded':
@@ -124,9 +123,9 @@ def submit_form():
         email = request.form.get('email')
         
         # Return a response based on form data
-        return f"Received form data - Username: {username}, Email: {email}"
+        return f"Received form data - Username: {username}, Email: {email}, Received JSON Payload:, {data}"
 
-    return "Unsupported content type"
+    return f"Unsupported content type Received JSON Payload:, {data}"
 
 if __name__ == "__main__":
     app.run(debug=True)
