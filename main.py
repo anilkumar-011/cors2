@@ -83,9 +83,19 @@ def delete():
     }
     return jsonify(response_data)
 
-@app.route('/multipart')
+@app.route('/multipart',  methods=['GET', 'POST'])
 def index():
-    return render_template('form.html')
+    if request.method == 'GET':
+        return render_template('form.html')
+    if request.method == 'POST':
+        incoming_data = request.json
+        message = incoming_data.get('message', 'No message received')
+        
+        response_data = {
+            "message": f"Received: {message}",
+            "status": "success"
+        }
+        return jsonify(response_data)
 
 @app.route('/submit', methods=['POST'])
 def submit_form():
