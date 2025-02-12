@@ -13,12 +13,14 @@
     <h1>Welcome to the Home Page!</h1>
     <p>This is a simple HTML page rendered by Flask</p>
 
-    <form action="/api/data" method="POST" enctype="multipart/form-data">
-        <button type="button">POST JSON to /api/data</button>
+     <!-- Form for /api/data -->
+     <form action="/api/data" method="POST">
+        <button type="submit">POST to /api/data</button>
     </form>
-    
-    <form action="/multipart" method="POST" enctype="multipart/form-data">
-        <button type="button">POST to /multipart</button>
+
+    <!-- Form for /multipart -->
+    <form action="/multipart" method="POST">
+        <button type="submit">POST to /multipart</button>
     </form>
     
     
