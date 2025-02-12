@@ -99,19 +99,32 @@ def index():
 
 @app.route('/submit', methods=['POST'])
 def submit_form():
-    # Get text input
-    username = request.form.get('username')
-    data = request.form.to_dict()  # Get form data as dictionary
-    print("Received JSON Payload:", data)  # Print to console
-    # Get uploaded file
-    uploaded_file = request.files.get('file')
-    
-    if uploaded_file:
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
-        uploaded_file.save(file_path)
-        return f"File uploaded to {file_path}, Username: {username}"
-    
-    return "No file uploaded or username missing!"
+    # Check if the form is multipart (file upload included)
+    if request.content_type == 'multipart/form-data':
+        # Get text input
+        username = request.form.get('username')
+        email = request.form.get('email')
+
+        # Get uploaded file
+        uploaded_file = request.files.get('file')
+        
+        if uploaded_file:
+            file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
+            uploaded_file.save(file_path)
+            return f"File uploaded to {file_path}, Username: {username}, Email: {email}"
+        
+        return f"Form data received without file. Username: {username}, Email: {email}"
+
+    # If it's a regular URL encoded form submission (application/x-www-form-urlencoded)
+    elif request.content_type == 'application/x-www-form-urlencoded':
+        # Get form data
+        username = request.form.get('username')
+        email = request.form.get('email')
+        
+        # Return a response based on form data
+        return f"Received form data - Username: {username}, Email: {email}"
+
+    return "Unsupported content type"
 
 if __name__ == "__main__":
     app.run(debug=True)
