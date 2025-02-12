@@ -13,15 +13,29 @@
     <h1>Welcome to the Home Page!</h1>
     <p>This is a simple HTML page rendered by Flask</p>
 
-    <!-- Form for /api/data -->
-    <form action="/api/data" method="POST">
-        <button type="submit">POST to /api/data</button>
+    <form id="jsonForm">
+        <button type="button" onclick="sendJson()">POST JSON to /api/data</button>
     </form>
-
-    <!-- Form for /multipart -->
+    
     <form action="/multipart" method="POST">
         <button type="submit">POST to /multipart</button>
     </form>
+    
+    <script>
+        function sendJson() {
+            fetch("/api/data", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ message: "Hello from JSON" })
+            })
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+    
 
 </body>
 
