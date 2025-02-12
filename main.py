@@ -91,7 +91,8 @@ def index():
 def submit_form():
     # Get text input
     username = request.form.get('username')
-    
+    data = request.form.to_dict()  # Get form data as dictionary
+    print("Received JSON Payload:", data)  # Print to console
     # Get uploaded file
     uploaded_file = request.files.get('file')
     
