@@ -100,7 +100,7 @@ def index():
 @app.route('/submit', methods=['POST'])
 def submit_form():
     # Check if the form is multipart (file upload included)
-    if request.content_type == 'multipart/form-data':
+    if 'multipart/form-data' in request.content_type:
         # Get text input
         username = request.form.get('username')
         email = request.form.get('email')
