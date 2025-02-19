@@ -107,13 +107,13 @@ def submit_form():
         username = request.form.get('username')
         email = request.form.get('email')
 
-        # Get uploaded file
-        uploaded_file = request.files.get('file')
+        # # Get uploaded file
+        # uploaded_file = request.files.get('file')
         
-        if uploaded_file:
-            file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
-            uploaded_file.save(file_path)
-            return f"File uploaded to {file_path}, Username: {username}, Email: {email}, Received JSON Payload:, {data}"
+        # if uploaded_file:
+        #     file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
+        #     uploaded_file.save(file_path)
+        #     return f"File uploaded to {file_path}, Username: {username}, Email: {email}, Received JSON Payload:, {data}"
         
         return f"Form data received without file. Username: {username}, Email: {email}, Received JSON Payload:, {data}"
 
