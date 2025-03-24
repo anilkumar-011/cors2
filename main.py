@@ -99,9 +99,14 @@ def index():
 
 @app.route('/submit', methods=['POST'])
 def submit_form():
-    # Check if the form is multipart (file upload included)
-    data = request.form.to_dict()  # Get form data as dictionary
+    # Get form data as a dictionary
+    data = request.form.to_dict()
     print('anil', data)
+
+    # Get request headers
+    headers = dict(request.headers)  # Convert headers to a dictionary for easier inclusion in the response
+
+    # Check content type
     if 'multipart/form-data' in request.content_type:
         # Get text input
         username = request.form.get('username')
@@ -111,11 +116,18 @@ def submit_form():
         uploaded_file = request.files.get('file')
         
         if uploaded_file:
+            # Save uploaded file
             file_path = os.path.join(app.config['UPLOAD_FOLDER'], uploaded_file.filename)
             uploaded_file.save(file_path)
-            return f"File uploaded to {file_path}, Username: {username}, Email: {email}, Received JSON Payload:, {data}"
+            return (f"File uploaded to {file_path}, "
+                    f"Username: {username}, Email: {email}, "
+                    f"Received JSON Payload: {data}, "
+                    f"Headers: {headers}")
         
-        return f"Form data received without file. Username: {username}, Email: {email}, Received JSON Payload:, {data}"
+        return (f"Form data received without file. "
+                f"Username: {username}, Email: {email}, "
+                f"Received JSON Payload: {data}, "
+                f"Headers: {headers}")
 
     # If it's a regular URL encoded form submission (application/x-www-form-urlencoded)
     elif request.content_type == 'application/x-www-form-urlencoded':
@@ -124,9 +136,14 @@ def submit_form():
         email = request.form.get('email')
         
         # Return a response based on form data
-        return f"Received form data - Username: {username}, Email: {email}, Received JSON Payload:, {data}"
+        return (f"Received form data - Username: {username}, Email: {email}, "
+                f"Received JSON Payload: {data}, "
+                f"Headers: {headers}")
 
-    return f"Unsupported content type Received JSON Payload:, {data}"
+    # For unsupported content types
+    return (f"Unsupported content type. "
+            f"Received JSON Payload: {data}, "
+            f"Headers: {headers}")
 
 if __name__ == "__main__":
     app.run(debug=True)
